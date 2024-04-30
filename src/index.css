@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply w-screen mx-auto min-w-[1200px];
+
+  .flex-center-row-column {
+    @apply flex justify-center items-center;
+  }
+
+  .section-1200w-flex-mxauto {
+    @apply flex w-[1200px] mx-auto;
+  }
+}
