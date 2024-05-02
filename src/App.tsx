@@ -7,7 +7,7 @@ import Loading from "./components/layout/Loading";
 
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
-import HomePage from "@/pages/HomePage";
+const HomePage = React.lazy(() => import("@/pages/HomePage"));
 const SignupPage = React.lazy(() => import("@/pages/SignupPage"));
 const BoardListPage = React.lazy(() => import("@/pages/BoardListPage"));
 const BoardDetailPage = React.lazy(() => import("@/pages/BoardDetailPage"));

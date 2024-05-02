@@ -5,7 +5,7 @@ import {
   titleValidation,
   contentValidation,
 } from "@/constants/boardEditorValidation";
-import SignUpFormErrorText from "../login/SignUpFormErrorText";
+import ErrorText from "../layout/ErrorText";
 
 type FormData = {
   title: string;
@@ -42,9 +42,7 @@ const BoardEditor = () => {
             {...register("title", titleValidation)}
             className="w-full rounded border border-gray-300 bg-white py-1 px-3 text-base leading-8 text-gray-700 outline-none transition-colors duration-200 ease-in-out focus:border-medium-orange focus:ring-2 focus:ring-medium-orange"
           />
-          {errors.title && (
-            <SignUpFormErrorText errorMessage={errors.title.message} />
-          )}
+          {errors.title && <ErrorText errorMessage={errors.title.message} />}
         </div>
         <div className="mb-4">
           <label
@@ -59,7 +57,7 @@ const BoardEditor = () => {
             className="h-96 w-full resize-none rounded border border-gray-300 bg-white py-1 px-3 text-base leading-6 text-gray-700 outline-none transition-colors duration-200 ease-in-out focus:border-medium-orange focus:ring-2 focus:ring-medium-orange"
           ></textarea>
           {errors.content && (
-            <SignUpFormErrorText errorMessage={errors.content.message} />
+            <ErrorText errorMessage={errors.content.message} />
           )}
         </div>
         <div className="flex flex-wrap">

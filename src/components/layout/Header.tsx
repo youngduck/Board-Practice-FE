@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { useAuthStore } from "@/store/Auth";
+import { useAuthStore } from "@/store/auth-store";
 import elio_logo from "@/assets/images/elio_logo.png";
 
 const Header = () => {
