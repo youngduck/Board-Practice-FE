@@ -1,6 +1,11 @@
-import React, { useState } from "react";
 import { usePostBoard } from "@/hooks/api/board/usePostBoard";
 import BoardEditorButton from "./BoardEditorButton";
+import { useForm, SubmitHandler } from "react-hook-form";
+import {
+  titleValidation,
+  contentValidation,
+} from "@/constants/boardEditorValidation";
+import SignUpFormErrorText from "../login/SignUpFormErrorText";
 
 type FormData = {
   title: string;
@@ -8,45 +13,38 @@ type FormData = {
 };
 
 const BoardEditor = () => {
-  const [formData, setFormData] = useState<FormData>({
-    title: "",
-    content: "",
-  });
-
   const { mutate, isPending } = usePostBoard();
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<FormData>();
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    mutate(formData);
+  const onSubmit: SubmitHandler<FormData> = (data: FormData) => {
+    mutate(data);
+    reset();
   };
 
   return (
     <>
       <form
         className="section-1200w-flex-mxauto flex-col my-24 border border-light-orange rounded-lg bg-white p-8"
-        onSubmit={handleSubmit}
+        onSubmit={handleSubmit(onSubmit)}
       >
         <div className="mb-4">
           <label htmlFor="title" className="text-2xl my-4 block text-gray-600">
             제목
           </label>
           <input
-            type="text"
             id="title"
-            name="title"
-            value={formData.title}
-            onChange={handleChange}
+            {...register("title", titleValidation)}
             className="w-full rounded border border-gray-300 bg-white py-1 px-3 text-base leading-8 text-gray-700 outline-none transition-colors duration-200 ease-in-out focus:border-medium-orange focus:ring-2 focus:ring-medium-orange"
           />
+          {errors.title && (
+            <SignUpFormErrorText errorMessage={errors.title.message} />
+          )}
         </div>
         <div className="mb-4">
           <label
@@ -57,11 +55,12 @@ const BoardEditor = () => {
           </label>
           <textarea
             id="content"
-            name="content"
-            value={formData.content}
-            onChange={handleChange}
+            {...register("content", contentValidation)}
             className="h-96 w-full resize-none rounded border border-gray-300 bg-white py-1 px-3 text-base leading-6 text-gray-700 outline-none transition-colors duration-200 ease-in-out focus:border-medium-orange focus:ring-2 focus:ring-medium-orange"
           ></textarea>
+          {errors.content && (
+            <SignUpFormErrorText errorMessage={errors.content.message} />
+          )}
         </div>
         <div className="flex flex-wrap">
           <BoardEditorButton
