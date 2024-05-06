@@ -1,20 +1,14 @@
-import Loading from "@/components/layout/Loading";
-import { useGetBoardById } from "@/hooks/api/board/useGetBoardById";
-import { useParams } from "react-router-dom";
 import BoardDetailView from "@/components/board/BoardDetailView";
 
-const BoardEditorPage = () => {
-  const { id } = useParams();
-  const { data: boardDetailData, isLoading } = useGetBoardById(id);
-
-  if (isLoading) return <Loading />;
-  const { title, content } = boardDetailData;
-
+const BoardDetailPage = () => {
   return (
     <main>
-      <BoardDetailView title={title} content={content} />
+      <BoardDetailView />
+      <section className="board-editor-body">
+        <div>추가하기</div>
+      </section>
     </main>
   );
 };
 
-export default BoardEditorPage;
+export default BoardDetailPage;

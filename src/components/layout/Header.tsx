@@ -5,8 +5,6 @@ import elio_logo from "@/assets/images/elio_logo.png";
 const Header = () => {
   const nickname = useAuthStore((state) => state.nickname);
 
-  console.log(Boolean(nickname), "nickname");
-
   return (
     <header className="w-full h-[120px]  border-b-2 border-deep-orange">
       <div className="flex w-[1200px] h-full mx-auto justify-between">

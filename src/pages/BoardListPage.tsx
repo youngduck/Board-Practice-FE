@@ -1,15 +1,7 @@
 import BoardList from "@/components/board/BoardList";
-import { useGetBoardList } from "@/hooks/api/board/useGetBoardList";
 import { Link } from "react-router-dom";
-import Loading from "@/components/layout/Loading";
 
 const BoardListPage = () => {
-  const { data: boardListData, isLoading } = useGetBoardList();
-
-  if (isLoading) {
-    return <Loading />;
-  }
-
   return (
     <main className="w-full auto">
       <section className="flex justify-between w-[1200px] h-auto mx-auto my-2">
@@ -22,7 +14,7 @@ const BoardListPage = () => {
           </div>
         </Link>
       </section>
-      <BoardList boardListData={boardListData} />
+      <BoardList />
     </main>
   );
 };

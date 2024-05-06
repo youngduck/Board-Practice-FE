@@ -7,6 +7,8 @@ export function useGetBoardList() {
   const { data = fallback, isLoading } = useQuery({
     queryKey: ["boards"],
     queryFn: () => getBoardList(),
+    staleTime: 60 * 1000 * 2,
+    gcTime: 60 * 1000,
   });
 
   return { data, isLoading };

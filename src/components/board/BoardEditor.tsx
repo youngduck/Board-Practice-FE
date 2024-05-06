@@ -6,11 +6,7 @@ import {
   contentValidation,
 } from "@/constants/boardEditorValidation";
 import ErrorText from "../layout/ErrorText";
-
-type FormData = {
-  title: string;
-  content: string;
-};
+import { IBoardFormData } from "@/types/types";
 
 const BoardEditor = () => {
   const { mutate, isPending } = usePostBoard();
@@ -20,27 +16,24 @@ const BoardEditor = () => {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<FormData>();
+  } = useForm<IBoardFormData>();
 
-  const onSubmit: SubmitHandler<FormData> = (data: FormData) => {
+  const onSubmit: SubmitHandler<IBoardFormData> = (data: IBoardFormData) => {
     mutate(data);
     reset();
   };
 
   return (
     <>
-      <form
-        className="section-1200w-flex-mxauto flex-col my-24 border border-light-orange rounded-lg bg-white p-8"
-        onSubmit={handleSubmit(onSubmit)}
-      >
+      <form className="board-editor-body" onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-4">
-          <label htmlFor="title" className="text-2xl my-4 block text-gray-600">
+          <label htmlFor="title" className="text-2xl block text-gray-600">
             제목
           </label>
           <input
             id="title"
             {...register("title", titleValidation)}
-            className="w-full rounded border border-gray-300 bg-white py-1 px-3 text-base leading-8 text-gray-700 outline-none transition-colors duration-200 ease-in-out focus:border-medium-orange focus:ring-2 focus:ring-medium-orange"
+            className="input-orange"
           />
           {errors.title && <ErrorText errorMessage={errors.title.message} />}
         </div>
@@ -54,7 +47,7 @@ const BoardEditor = () => {
           <textarea
             id="content"
             {...register("content", contentValidation)}
-            className="h-96 w-full resize-none rounded border border-gray-300 bg-white py-1 px-3 text-base leading-6 text-gray-700 outline-none transition-colors duration-200 ease-in-out focus:border-medium-orange focus:ring-2 focus:ring-medium-orange"
+            className="textarea-orange"
           ></textarea>
           {errors.content && (
             <ErrorText errorMessage={errors.content.message} />

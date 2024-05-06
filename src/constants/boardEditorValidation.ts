@@ -22,7 +22,7 @@ export const contentValidation = {
     message: "내용은 최소 2자 이상이어야 합니다.",
   },
   maxLength: {
-    value: 10,
-    message: "내용은 최대 10자 이하여야 합니다.",
+    value: 100,
+    message: "내용은 최대 100자 이하여야 합니다.",
   },
 };
