@@ -1,24 +1,24 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { updateBoardById } from "@/api/board-api";
+import { postReplyBoard } from "@/api/board-api";
 import { useNavigate } from "react-router-dom";
-import { IBoardFormData } from "@/types/types";
+import { IReplyBoardFormData } from "@/types/types";
 
-export function useUpdateBoardById(id: string | undefined) {
+export function usePostReplyBoard(id: any) {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const { mutate, isPending } = useMutation({
-    mutationFn: (data: IBoardFormData) => updateBoardById(id, data),
+    mutationFn: (data: IReplyBoardFormData) => postReplyBoard(id, data),
     onSuccess: () => {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-expect-error
-      queryClient.invalidateQueries(["boards", id]);
+      queryClient.invalidateQueries(["boards", "reply", id]);
+      alert("답글 작성이 완료되었습니다.");
       navigate("/board/list");
-      alert("게시글 수정이 완료되었습니다.");
     },
     onError: (err) => {
-      alert("게시글 수정을 실패했습니다.err :" + err);
+      alert("답글 작성을 실패했습니다. err :" + err);
     },
-    mutationKey: ["boards", id],
+    mutationKey: ["boards", "reply", id],
   });
 
   return { mutate, isPending };

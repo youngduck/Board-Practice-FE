@@ -1,9 +1,9 @@
 import { NavLink } from "react-router-dom";
-import { useAuthStore } from "@/store/auth-store";
 import elio_logo from "@/assets/images/elio_logo.png";
+import useCheckRole from "@/hooks/common/useCheckRole";
 
 const Header = () => {
-  const nickname = useAuthStore((state) => state.nickname);
+  const { clientUserName, clientRole } = useCheckRole(null);
 
   return (
     <header className="w-full h-[120px]  border-b-2 border-deep-orange">
@@ -22,8 +22,10 @@ const Header = () => {
             Board
           </NavLink>
 
-          {nickname ? (
-            <div>ID: {nickname}</div>
+          {clientUserName ? (
+            <div>
+              {clientUserName}({clientRole})
+            </div>
           ) : (
             <NavLink to="/SignUp" className="p-4">
               Sign Up

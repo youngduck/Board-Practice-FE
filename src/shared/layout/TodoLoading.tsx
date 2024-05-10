@@ -1,6 +1,6 @@
-const Loading = () => {
+const TodoLoading = () => {
   return (
-    <div className="section-1200w-flex-mxauto h-[1200px] flex-center-row-column">
+    <div className="flex w-[900px] mx-auto h-[800px] flex-center-row-column">
       <div
         aria-label="Loading..."
         role="status"
@@ -91,4 +91,4 @@ const Loading = () => {
   );
 };
 
-export default Loading;
+export default TodoLoading;

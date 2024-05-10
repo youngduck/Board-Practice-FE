@@ -1,28 +1,34 @@
 import BoardEditorButton from "@/components/board/BoardEditorButton";
-import { useUpdateBoardById } from "@/hooks/api/board/useUpdateBoard";
 import { useGetBoardById } from "@/hooks/api/board/useGetBoardById";
 import { useDeleteBoardById } from "@/hooks/api/board/useDeleteBoardById";
-import { useParams } from "react-router-dom";
-import Loading from "../layout/Loading";
+import { useParams, useNavigate } from "react-router-dom";
+import Loading from "../../shared/layout/Loading";
+import useCheckRole from "@/hooks/common/useCheckRole";
 
 const BoardDetailView = () => {
-  const { id } = useParams();
+  //ANCHOR - 게시판 세부조회 API
+  const { boardId } = useParams();
+  const { data: boardDetailData, isLoading } = useGetBoardById(boardId);
 
-  const { data: boardDetailData, isLoading } = useGetBoardById(id);
-  const { mutate: updateMutate, isPending: isUpdatePending } =
-    useUpdateBoardById(id);
+  const { isAuthor, isAdmin } = useCheckRole(boardDetailData.uid);
+  const navigate = useNavigate();
+
+  //ANCHOR - 삭제 버튼
   const { mutate: deleteMutate, isPending: isDeletePending } =
-    useDeleteBoardById(id);
+    useDeleteBoardById(boardId);
 
   if (isLoading) return <Loading />;
 
-  if (!boardDetailData.visible)
-    return <section className="board-editor-body">삭제된 게시물입니다</section>;
-  else
+  if (boardDetailData.visible || isAdmin || isAuthor)
     return (
       <section className="board-editor-body">
         <div className="mb-4">
-          <div className="text-2xl my-4 block text-gray-600">제목</div>
+          <div className="flex justify-between">
+            <div className="text-2xl my-4 block text-gray-600">제목</div>
+            <p className="text-2xl my-4 block text-gray-600">
+              작성자:{boardDetailData.name}
+            </p>
+          </div>
           <div className="input-orange">{boardDetailData.title}</div>
         </div>
         <div className="mb-4">
@@ -35,18 +41,31 @@ const BoardDetailView = () => {
           <BoardEditorButton
             text="수정"
             buttonType="button"
-            disabled={isDeletePending || isUpdatePending}
-            method={updateMutate}
+            disabled={false}
+            method={() =>
+              navigate("/Board/Write", {
+                state: {
+                  type: "update",
+                  id: boardId,
+                  title: boardDetailData.title,
+                  content: boardDetailData.content,
+                },
+              })
+            }
+            isAuthor={isAuthor}
           />
           <BoardEditorButton
             text="삭제"
             buttonType="button"
-            disabled={isDeletePending || isUpdatePending}
+            disabled={isDeletePending}
             method={deleteMutate}
+            isAuthor={isAuthor}
           />
         </div>
       </section>
     );
+  else
+    return <section className="board-editor-body">삭제된 게시물입니다</section>;
 };
 
 export default BoardDetailView;

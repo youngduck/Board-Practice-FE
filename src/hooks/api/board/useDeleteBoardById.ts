@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 export function useDeleteBoardById(id: string | undefined) {
   const queryClient = useQueryClient();
-  const history = useNavigate();
+  const navigate = useNavigate();
   const { mutate, isPending } = useMutation({
     mutationFn: () => deleteBoardById(id),
     onSuccess: () => {
@@ -12,7 +12,7 @@ export function useDeleteBoardById(id: string | undefined) {
       // @ts-expect-error
       queryClient.invalidateQueries(["boards"]);
       alert("게시글 삭제가 완료되었습니다.");
-      history("/board/list");
+      navigate("/board/list");
     },
     onError: (err) => {
       alert("게시글 삭제를 실패했습니다.err :" + err);

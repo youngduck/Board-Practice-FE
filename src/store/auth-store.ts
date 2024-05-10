@@ -1,14 +1,28 @@
 import { create } from "zustand";
+import { createJSONStorage, persist } from "zustand/middleware";
 
-interface IAuthStore {
-  nickname: string;
-  setNickname: (newNickname: string) => void;
+interface IUser {
+  role: string | null;
+  name: string | null;
+  email: string | null;
+  id: number | null;
 }
 
-export const useAuthStore = create<IAuthStore>((set) => ({
-  nickname: "",
-  setNickname: (newNickname) =>
-    set(() => ({
-      nickname: newNickname,
-    })),
-}));
+interface IAuthStore {
+  user: IUser;
+  setUserData: (userData: IUser) => void;
+}
+
+export const useAuthStore = create(
+  persist<IAuthStore>(
+    (set) => ({
+      user: { role: null, name: null, email: null, id: null },
+      setUserData: (userData: IUser) =>
+        set((state) => ({ ...state, user: userData })),
+    }),
+    {
+      name: "accessToken",
+      storage: createJSONStorage(() => localStorage),
+    }
+  )
+);

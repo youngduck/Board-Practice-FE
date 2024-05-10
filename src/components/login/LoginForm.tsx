@@ -5,11 +5,11 @@ import {
   emailVlidation,
   passwordVlidation,
 } from "@/constants/LoginFormValidation";
-import ErrorText from "../layout/ErrorText";
+import ErrorText from "../../shared/layout/ErrorText";
 import { useLogin } from "@/hooks/api/auth/useLogin";
 
 const LoginForm = () => {
-  const { nickname } = useAuthStore();
+  const { user, setUserData } = useAuthStore();
   const { mutate, isPending } = useLogin();
   const {
     register,
@@ -20,21 +20,32 @@ const LoginForm = () => {
 
   const onSubmit: SubmitHandler<ILoginFormData> = (data: ILoginFormData) => {
     mutate(data);
-    console.log(data);
     reset();
   };
 
-  const abc = () => {
-    alert("로그아웃");
+  const onLogOut = () => {
+    setUserData({ role: null, name: null, email: null, id: null });
+    useAuthStore.persist.clearStorage();
   };
 
   return (
     <section>
-      {nickname ? (
-        <>
-          <p>{nickname}님 환영합니다.</p>
-          <button onClick={abc}>로그아웃</button>
-        </>
+      {user.email ? (
+        <div className="">
+          <img
+            className="inline-flex object-cover border-4 border-light-orange rounded-full shadow-[5px_5px_0_0_rgba(0,0,0,1)] shadow-medium-orange h-44 w-44"
+            src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NzEyNjZ8MHwxfHNlYXJjaHwyfHxoZWFkc2hvdHxlbnwwfDB8fHwxNjk1ODE3MjEzfDA&ixlib=rb-4.0.3&q=80&w=1080"
+            alt="user_img"
+          />
+          <p className="text-lg mx-auto mt-4 text-center">{user.name}님</p>
+          <button
+            type="button"
+            className="login-button w-full"
+            onClick={onLogOut}
+          >
+            로그아웃
+          </button>
+        </div>
       ) : (
         <form className="p-2" onSubmit={handleSubmit(onSubmit)}>
           <input

@@ -4,7 +4,8 @@ interface IBoardEditorButton {
   text: string;
   buttonType: "submit" | "button" | "reset";
   disabled: boolean;
-  method?: () => void;
+  method?: (data: any) => any;
+  isAuthor: boolean;
 }
 
 const BoardEditorButton: React.FC<IBoardEditorButton> = ({
@@ -12,11 +13,14 @@ const BoardEditorButton: React.FC<IBoardEditorButton> = ({
   buttonType,
   disabled,
   method,
+  isAuthor,
 }) => {
   return (
     <>
       <button
-        className="rounded border-2 bg-white mr-2 py-2 px-6 text-lg text-medium-orange border-medium-orange hover:bg-light-orange hover:text-white focus:outline-none disabled:bg-gray-900 disabled:cursor-not-allowed"
+        className={`${
+          isAuthor ? "" : "hidden"
+        } p-1 border-2 border-deep-orange mr-2 rounded-md hover:text-white hover:bg-light-orange disabled:bg-gray-900 disabled:cursor-not-allowed`}
         disabled={disabled}
         type={buttonType}
         onClick={method}

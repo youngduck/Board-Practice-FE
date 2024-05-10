@@ -1,10 +1,10 @@
 import { IBoardListItem } from "@/types/types";
-import BoardListItem from "./BoardItem";
+import BoardItem from "./BoardItem";
 import { useGetBoardList } from "@/hooks/api/board/useGetBoardList";
 
-import Loading from "@/components/layout/Loading";
+import Loading from "@/shared/layout/Loading";
 
-const BoardList = () => {
+const BoardListBody = () => {
   const { data: boardListData, isLoading } = useGetBoardList();
 
   if (isLoading) {
@@ -15,13 +15,16 @@ const BoardList = () => {
     <section className="section-1200w-flex-mxauto h-auto min-h-[800px] my-2">
       <ul className="w-full">
         {boardListData.map((item: IBoardListItem, idx: number) => (
-          <BoardListItem
+          <BoardItem
             key={idx}
             id={item.id}
+            uid={item.uid}
             title={item.title}
             content={item.content}
             create_TIME={item.create_TIME}
             visible={item.visible}
+            name={item.name}
+            depth={item.depth}
           />
         ))}
       </ul>
@@ -29,4 +32,4 @@ const BoardList = () => {
   );
 };
 
-export default BoardList;
+export default BoardListBody;

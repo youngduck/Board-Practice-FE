@@ -1,9 +1,12 @@
 export interface IBoardListItem {
   id: number;
+  uid: number;
+  name: string;
   title: string;
   content: string;
   create_TIME: string;
   visible: boolean;
+  depth: number;
 }
 
 export interface ISignUpFormData {
@@ -13,6 +16,11 @@ export interface ISignUpFormData {
 }
 
 export interface IBoardFormData {
+  title: string;
+  content: string;
+}
+export interface IReplyBoardFormData {
+  pid: string;
   title: string;
   content: string;
 }

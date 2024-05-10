@@ -25,6 +25,11 @@
       "@/*": ["src/*"],
       "@/api": ["src/api/*"],
       "@/assets": ["src/assets/*"],
+      "@/components": ["src/components/*"],
+      "@/hooks": ["src/hooks/*"],
+      "@/shared": ["src/shared/*"],
+      "@/types": ["src/types/*"],
+      "@/utils": ["src/utils/*"],
       "@/pages": ["src/pages/*"]
     }
   },

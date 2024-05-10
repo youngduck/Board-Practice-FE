@@ -1,5 +1,5 @@
 import { useForm, SubmitHandler } from "react-hook-form";
-import ErrorText from "../layout/ErrorText";
+import ErrorText from "../../shared/layout/ErrorText";
 import {
   nameValidation,
   emailVlidation,
@@ -7,6 +7,7 @@ import {
 } from "@/constants/signupFormValidation";
 import { ISignUpFormData } from "@/types/types";
 import { useSignUp } from "@/hooks/api/auth/useSignUp";
+// import BoardEditorButton from "../board/BoardEditorButton";
 
 const SignUpForm = () => {
   const {
@@ -52,7 +53,7 @@ const SignUpForm = () => {
         disabled={isPending}
         className="bg-deep-orange text-white rounded-md mt-10 p-2 disabled:bg-gray-300"
       >
-        회원가입하기
+        회원가입
       </button>
     </form>
   );

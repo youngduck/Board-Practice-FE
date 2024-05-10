@@ -5,7 +5,7 @@ import { IBoardFormData } from "@/types/types";
 
 export function usePostBoard() {
   const queryClient = useQueryClient();
-  const history = useNavigate();
+  const navigate = useNavigate();
   const { mutate, isPending } = useMutation({
     mutationFn: (data: IBoardFormData) => postBoard(data),
     onSuccess: () => {
@@ -13,7 +13,7 @@ export function usePostBoard() {
       // @ts-expect-error
       queryClient.invalidateQueries(["boards"]);
       alert("게시글 작성이 완료되었습니다.");
-      history("/board/list");
+      navigate("/board/list");
     },
     onError: (err) => {
       alert("게시글 작성을 실패했습니다. err :" + err);
