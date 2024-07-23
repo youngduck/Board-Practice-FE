@@ -1,6 +1,13 @@
 import LoginForm from "@/components/login/LoginForm";
 import TodoList from "@/components/json-test/TodoList";
 import AlbumList from "@/components/json-test/AlbumList";
+import { ErrorBoundary } from "react-error-boundary";
+import { Suspense } from "react";
+import Loading from "@/shared/layout/Loading";
+import ErrorFallback from "@/components/json-test/ErrorFallback";
+
+import { QueryErrorResetBoundary } from "@tanstack/react-query";
+
 const HomePage = () => {
   console.log("홈페이지렌더링", Date.now());
   return (
@@ -15,7 +22,15 @@ const HomePage = () => {
       </section>
       <section className="flex w-[1200px] h-auto mx-auto my-2">
         <div className="h-[full] w-full border-2 m-2 border-medium-orange">
-          <AlbumList />
+          <QueryErrorResetBoundary>
+            {({ reset }) => (
+              <ErrorBoundary onReset={reset} FallbackComponent={ErrorFallback}>
+                <Suspense fallback={<Loading />}>
+                  <AlbumList />
+                </Suspense>
+              </ErrorBoundary>
+            )}
+          </QueryErrorResetBoundary>
         </div>
       </section>
     </main>

@@ -8,5 +8,6 @@ export async function createAuth(data: ISignUpFormData) {
 
 export async function postLogin(data: ILoginFormData) {
   const responseData = await api.post("/Login", data);
+  console.log(responseData.data, "responseData,로그인값");
   return responseData.data;
 }

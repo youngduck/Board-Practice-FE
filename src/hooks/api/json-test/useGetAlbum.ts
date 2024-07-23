@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
 import { getAlbumList } from "@/api/json-test-api";
 
 export function useGetAlbum() {
@@ -12,4 +12,13 @@ export function useGetAlbum() {
   });
 
   return { data, isLoading };
+}
+
+export function useGetAlbum2() {
+  const { data } = useSuspenseQuery({
+    queryKey: ["post"],
+    queryFn: () => getAlbumList(),
+  });
+
+  return { data };
 }

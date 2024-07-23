@@ -1,17 +1,14 @@
-import { useGetAlbum } from "@/hooks/api/json-test/useGetAlbum";
-import Loading from "@/shared/layout/Loading";
+import { useGetAlbum2 } from "@/hooks/api/json-test/useGetAlbum";
 
 const AlbumList = () => {
-  const { data: AlbumData, isLoading } = useGetAlbum();
-
-  if (isLoading) return <Loading />;
+  const { data: albumDatas } = useGetAlbum2();
 
   return (
     <>
       <div className="text-[40px] text-deep-orange">Album data</div>
 
       <ul className="flex flex-wrap w-full h-[800px]">
-        {AlbumData.map((item: any, index: number) => (
+        {albumDatas.map((item: any, index: number) => (
           <li key={index} className="p-1">
             album:{item.id}
           </li>

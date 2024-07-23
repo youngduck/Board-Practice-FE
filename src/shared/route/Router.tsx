@@ -5,7 +5,8 @@ import PrivateRoute from "@/shared/route/PrivateRoute";
 import PublicRoute from "@/shared/route/PublicRoute";
 import AdminRoute from "@/shared/route/AdminRoute";
 
-const HomePage = React.lazy(() => import("@/pages/HomePage"));
+// const HomePage = React.lazy(() => import("@/pages/HomePage"));
+import HomePage from "@/pages/HomePage";
 const SignupPage = React.lazy(() => import("@/pages/SignupPage"));
 const BoardListPage = React.lazy(() => import("@/pages/BoardListPage"));
 const BoardDetailPage = React.lazy(() => import("@/pages/BoardDetailPage"));

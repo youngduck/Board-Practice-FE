@@ -8,13 +8,6 @@ export async function getTodoList() {
   return responseData.data;
 }
 
-// export async function getAlbumList() {
-//   const responseData = await axios.get(
-//     "https://jsonplaceholder.typicode.com/albums"
-//   );
-//   return responseData.data;
-// }
-
 export async function getAlbumList() {
   await new Promise((resolve) => setTimeout(resolve, 3000));
   const responseData = await axios.get(
